@@ -42,8 +42,8 @@
           <div :class="`card action__cards-playingCards-card ${isSlideActive ? 'action__cards-playingCards-card-slide-up' : ''} ${isFlipActive ? 'action__cards-playingCards-card-flip' : ''}`">
             <span :class="`rank ${symbol}`">{{ rank }}</span>
             <span class="suit">
-              <img class="smybol-1" :src="`src/assets/images/game-symbols/${symbol}.svg`" :alt="symbol">
-              <img class="smybol-2" :src="`src/assets/images/game-symbols/${symbol}.svg`" :alt="symbol">
+              <img class="smybol-1" :src="gameSymbols(symbol)" :alt="symbol">
+              <img class="smybol-2" :src="gameSymbols(symbol)" :alt="symbol">
             </span>
           </div>
         </div>
@@ -95,6 +95,10 @@ const {
   switchBetMobile,
   outcomes } = toRefs(useMock());
 const { gameCardChange } = useMock();
+
+const gameSymbols = (symbol: string) => {
+ return new URL(`../assets/images/game-symbols/${symbol}.svg`, import.meta.url).href;
+};
 
 onMounted(() => {
   window.addEventListener("resize", handleWindowSizeChange);

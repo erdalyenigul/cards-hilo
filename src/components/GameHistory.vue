@@ -6,8 +6,8 @@
           <div class="card">
             <span :class="`rank ${card.symbol}`">{{ card.rank }}</span>
             <span class="suit"> 
-              <img class="smybol-1" :src="`src/assets/images/game-symbols/${card.symbol}.svg`" :alt="card.symbol">
-              <img class="smybol-2" :src="`src/assets/images/game-symbols/${card.symbol}.svg`" :alt="card.symbol">
+              <img class="smybol-1" :src="gameSymbols(card.symbol)" :alt="card.symbol">
+              <img class="smybol-2" :src="gameSymbols(card.symbol)" :alt="card.symbol">
             </span>
             <div
               v-if="card.status !== 'start'"
@@ -27,6 +27,9 @@ import { useMock } from '../stores/mock';
 
 const { cardHistory } = toRefs(useMock());
 
+const gameSymbols = (symbol: string) => {
+ return new URL(`../assets/images/game-symbols/${symbol}.svg`, import.meta.url).href;
+};
 
 function setHistoryDecision(lose: boolean) {
   if(lose === false) return 'correct';

@@ -14,7 +14,6 @@
               :class="`card__decision card__decision-${setHistoryDecision(card.lose)} ${setHistoryStatusClass(card.status)}`"
             ></div>
           </div>
-          <div class="history__element">{{ card.status === 'start' ? 'Start' : card.bet }}</div>
         </li>
       </ul>
     </div>
@@ -38,10 +37,11 @@ function setHistoryDecision(lose: boolean) {
 }
 
 function setHistoryStatusClass(status: string) {
+  console.log(status)
   if(status == 'start') return 'start';
   else if(status == 'higher') return 'card__decision-correct--up';
   else if(status == 'lower') return 'card__decision-correct--down';
-  else { return }
+  else { return 'card__decision-correct--other' }
 }
 </script>
 

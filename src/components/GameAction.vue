@@ -1,31 +1,22 @@
 <template>
   <div class="action">
-    <div :class="{ 'action__shortcut-hidden': switchShortcutMobile }" class="action__shortcut">
+    <div class="action__shortcut">
       <div class="action__shortcut-content">
-        <div v-if="isGameStart || gameover" class="action__shortcut-content-tooltip">Please bet before choosing an option</div>
         <button @click="gameCardChange('red')" class="action__shortcut-content-button action__shortcut-content-button--red"
           :class="{ 'action__shortcut-content-button-preventClick': preventClick || isGameStart || gameover }">
-          <span>Red</span>
-          <span>x{{ outcomes.color.black }}</span>
-          <span>50%</span>
+          <span>Kırmızı</span>
         </button>
         <button @click="gameCardChange('black')" class="action__shortcut-content-button action__shortcut-content-button--black"
           :class="{ 'action__shortcut-content-button-preventClick': preventClick || isGameStart || gameover }">
-          <span>Black</span>
-          <span>x{{ outcomes.color.red }}</span>
-          <span>50%</span>
+          <span>Siyah</span>
         </button>
         <button @click="gameCardChange('number')" class="action__shortcut-content-button action__shortcut-content-button--number"
           :class="{ 'action__shortcut-content-button-preventClick': preventClick || isGameStart || gameover }">
           <span>2-10</span>
-          <span>x{{ outcomes.numberOrSymbol.number }}</span>
-          <span>69.23%</span>
         </button>
         <button @click="gameCardChange('symbol')" class="action__shortcut-content-button action__shortcut-content-button--letter"
           :class="{ 'action__shortcut-content-button-preventClick': preventClick || isGameStart || gameover }">
           <span>JQKA</span>
-          <span>x{{ outcomes.numberOrSymbol.symbol }}</span>
-          <span>30.77%</span>
         </button>
       </div>
     </div>
@@ -33,11 +24,11 @@
     <div class="action__cards">
       <div class="action__cards-playingCards playingCards simpleCards">
         <div class="action__cards-game">
-          <div v-if="isGameStart" class="action__cards-start">
-            Press Bet to Start!
+          <div v-if="isGameStart" class="action__cards-start" @click="startGame">
+            OYNA!
           </div>
-          <div v-if="gameover" class="action__cards-start">
-            Try Again!
+          <div v-if="gameover" class="action__cards-start" @click="startGame">
+            Kaybettin! <br> Yeniden Dene!
           </div>
           <div :class="`card action__cards-playingCards-card ${isSlideActive ? 'action__cards-playingCards-card-slide-up' : ''} ${isFlipActive ? 'action__cards-playingCards-card-flip' : ''}`">
             <span :class="`rank ${symbol}`">{{ rank }}</span>
@@ -51,30 +42,22 @@
       </div>
     </div>
 
-    <div :class="{ 'action__bet-hidden': switchBetMobile }" class="action__bet">
+    <div class="action__bet">
       <div class="action__bet-content">
-        <div v-if="isGameStart || gameover" class="action__bet-content-tooltip">Please bet before choosing an option</div>
         <button @click="gameCardChange('higher')" class="action__bet-content-button action__bet-content-button--higher"
           :class="{ 'action__bet-content-button-preventClick': preventClick || isGameStart || gameover }">
-          <span>Higher or Same</span>
-          <span>x{{ outcomes.higherOrSame.higher.number }}</span>
-          <span>{{ outcomes.higherOrSame.higher.percent }}%</span>
+          <span>Yukarı</span>
         </button>
         <button @click="gameCardChange('lower')" class="action__bet-content-button action__bet-content-button--lower"
           :class="{ 'action__bet-content-button-preventClick': preventClick || isGameStart || gameover }">
-          <span>Lower or Same</span>
-          <span>x{{ outcomes.higherOrSame.lower.number }}</span>
-          <span>{{ outcomes.higherOrSame.lower.percent }}%</span>
+          <span>Aşağı</span>
         </button>
       </div>
     </div>
-
-    <div class="action__switch">
-      <label class="switch">
-        <input type="checkbox" @click="switchBetModel()">
-        <span class="slider"></span>
-      </label>
-      Switch Bet Model
+  </div>
+  <div class="panel">
+    <div class="panel__bet-button">
+      <button v-if="isGameStart || gameover" @click="startGame()">OYNA</button>
     </div>
   </div>
 </template>
@@ -100,10 +83,23 @@ const gameSymbols = (symbol: string) => {
  return new URL(`../assets/images/game-symbols/${symbol}.svg`, import.meta.url).href;
 };
 
-onMounted(() => {
-  window.addEventListener("resize", handleWindowSizeChange);
-  handleWindowSizeChange();
-});
+const { tryAgain } = useMock();
+
+gameCardChange('start')
+
+function startGame() {
+  isGameStart.value = false
+  
+  if(gameover.value) {
+    gameover.value = false
+    tryAgain()
+  }
+}
+
+function cashout() {
+  console.log('cashover')
+}
+
 const handleWindowSizeChange = () => {
 if (window.innerWidth < 767) {
   switchShortcutMobile.value = true
@@ -119,6 +115,11 @@ function switchBetModel() {
   switchShortcutMobile.value = !switchShortcutMobile.value
   switchBetMobile.value = !switchBetMobile.value
 }
+
+onMounted(() => {
+  window.addEventListener("resize", handleWindowSizeChange);
+  handleWindowSizeChange();
+});
 
 </script>
 

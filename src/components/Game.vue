@@ -2,14 +2,12 @@
   <div class="game">
     <History />
     <Action />
-    <Panel />
   </div>
 </template>
 
 <script setup lang="ts">
 import History from '../components/GameHistory.vue';
 import Action from '../components/GameAction.vue';
-import Panel from '../components/GamePanel.vue';
 </script>
 
 <style lang="scss">
@@ -23,12 +21,12 @@ import Panel from '../components/GamePanel.vue';
   .history{
     display:flex;
     width:80%;
-    min-height:145px;
+    min-height:110px;
     background-color: rgba(34, 47, 66, 0.54);
     margin-bottom: 40px;
     border-radius: 10px;
     border: 1px solid #2f4566;
-    padding:15px;
+    padding:10px;
     #autoScroll{
       scroll-behavior: smooth;
     }
@@ -50,7 +48,7 @@ import Panel from '../components/GamePanel.vue';
         .suit{
           font-size: 20px;
           width: 100%;
-          height: 70px;
+          height: 62px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -98,9 +96,6 @@ import Panel from '../components/GamePanel.vue';
       display: flex;
       align-items: center;
       width: calc(50% - 111px);
-      background-color: rgba(34, 47, 66, 0.54);
-      border-radius: 10px;
-      border: 1px solid #2f4566;
       padding:20px 40px;
       opacity:1;
       transition: all 0.1s ease;
@@ -131,6 +126,7 @@ import Panel from '../components/GamePanel.vue';
           width:270px;
         }
         &-button{
+          height:52px;
           display: flex;
           width: 100%;
           background:transparent;
@@ -157,8 +153,8 @@ import Panel from '../components/GamePanel.vue';
             right: 12px;
             top: 50%;
             transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             opacity: 0.6;
             background-repeat: no-repeat;
             background-position: 50%;
@@ -177,13 +173,13 @@ import Panel from '../components/GamePanel.vue';
             }
           }
           &--number{
-            background:linear-gradient(90deg,#3d87f9 0%,#1566df);
+            background:linear-gradient(90deg, #243753 0%, #405780);
             &:after {
               background-image: url(/src/assets/images/dots-3.svg);
             }
           }
           &--letter{
-            background:linear-gradient(90deg,#3d87f9 0%,#1566df);
+            background:linear-gradient(90deg, #243753 0%, #405780);
             &:after {
               background-image: url(/src/assets/images/crown.svg);
             }
@@ -217,7 +213,7 @@ import Panel from '../components/GamePanel.vue';
         width: 100%;
         &-card{
           width:100%;
-          height:100%;
+          height:106%;
           box-shadow: 0px 1px 4px #292929;
           transition: transform .25s;
           transform-style: preserve-3d;
@@ -268,15 +264,18 @@ import Panel from '../components/GamePanel.vue';
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 10px 20px;
+        padding: 10px 5px;
         border: none;
-        border-radius: 4px;
-        font-size: 15px;
+        font-size: 14px;
+        border-radius: 10px;
+        line-height: 20px;
         font-weight: 600;
         color: #fff;
         background: rgba(0, 0, 0, 0.8);
         z-index:2;
-        text-align: center
+        text-align: center;
+        width: 130px;
+        cursor: pointer;
       }
       &-game{
         position: absolute;
@@ -294,16 +293,13 @@ import Panel from '../components/GamePanel.vue';
       display: flex;
       align-items: center;
       width: calc(50% - 111px);
-      background-color: rgba(34, 47, 66, 0.54);
-      border-radius: 10px;
-      border: 1px solid #2f4566;
       padding:20px 40px;
       opacity:1;
       transition: all 0.1s ease;
       &-content{
         position: relative;
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
+        display: flex;
+        flex-direction: column;
         gap:10px;
         width:100%;
         border-radius: 10px;
@@ -327,6 +323,7 @@ import Panel from '../components/GamePanel.vue';
           width:270px;
         }
         &-button{
+          height: 54px;
           display: flex;
           width: 100%;
           background:transparent;
@@ -335,7 +332,7 @@ import Panel from '../components/GamePanel.vue';
           border-radius:6px;
           padding:8px;
           position: relative;
-          background:linear-gradient(90deg,#3d87f9 0%,#1566df);
+          background:linear-gradient(90deg, #243753 0%, #405780);
           background-size: cover;
           cursor:pointer;
           span{
@@ -432,6 +429,10 @@ import Panel from '../components/GamePanel.vue';
           }
           &--down{
             background-image: url(../assets/images/arrow-down.svg);
+            background-size: cover;
+          }
+          &--other{
+            background-image: url(../assets/images/hyphen.png);
             background-size: cover;
           }
         }
@@ -536,8 +537,8 @@ import Panel from '../components/GamePanel.vue';
           font-weight: 700;
           letter-spacing: 0.3px;
           line-height: 30px;
-          width: 30vw;
-          height: 10vw;
+          width: 200px;
+          height: 50px;
           max-width: 175px;
           max-height: 64px;
           text-align: center;
@@ -556,8 +557,11 @@ import Panel from '../components/GamePanel.vue';
   .game .action__shortcut-content{border:none; padding:0;}
 }
 @media (max-width:767px) {
+  .game .action__bet-content-button:after{width:60px; height:60px; right:0;}
+  .game .action__bet-content-button span:nth-child(1){font-size:14px;}
+  .game .action__bet-content{flex-direction: row;}
   .game .action{height:100%; flex-direction: column; margin-bottom:10px;}
-  .game .action__cards{width:122px; height:160px}
+  .game .action__cards{width:170px; height:220px; margin-bottom: 10px;}
   .game .action__bet{width: calc(100% - 120px); width: 100%; order: 2; margin-bottom:10px;}
   .game .action__shortcut{width: 100%; order: 3; margin-bottom:10px;}
   .game .panel{flex-direction: column;}
@@ -566,12 +570,11 @@ import Panel from '../components/GamePanel.vue';
   .game .history{width:100%; margin-bottom:10px;}
   .game .action__cards{order:1;}
   .game .action__cards .playingCards .card .suit{height:80px;}
-  .game .action__cards .playingCards .card .suit .smybol-1{width:25px; height:25px;}
-  .game .action__cards .playingCards .card .suit .smybol-2{width:15px; height:15px;}
+  .game .action__cards .playingCards .card .suit .smybol-1{width:50px; height:50px;}
+  .game .action__cards .playingCards .card .suit .smybol-2{width:30px; height:30px;}
   .game .action__switch{display:flex;}
   .game .panel__bet-shortcut{height:38px; padding-right:2px;}
+  .game .action__shortcut{border: none;}
+  .game .action__shortcut, .game .action__bet{padding:0;}
 }
-
-
-
 </style>

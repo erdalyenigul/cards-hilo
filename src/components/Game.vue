@@ -352,8 +352,8 @@ import Action from '../components/GameAction.vue';
             right: 12px;
             top: 50%;
             transform: translateY(-50%);
-            width: 100px;
-            height: 100px;
+            width: 50px;
+            height: 50px;
             opacity: 0.6;
             background-repeat: no-repeat;
             background-position: 50%;
@@ -361,12 +361,12 @@ import Action from '../components/GameAction.vue';
           }
           &--higher{
             &:after {
-              background-image: url(../assets/images/arrow-up.svg);
+              background-image: url(../assets/images/arrow-up.png);
             }
           }
           &--lower{
             &:after {
-              background-image: url(../assets/images/arrow-down.svg);
+              background-image: url(../assets/images/arrow-down.png);
             }
           }
           &-preventClick{
@@ -557,7 +557,7 @@ import Action from '../components/GameAction.vue';
   .game .action__shortcut-content{border:none; padding:0;}
 }
 @media (max-width:767px) {
-  .game .action__bet-content-button:after{width:60px; height:60px; right:0;}
+  .game .action__bet-content-button:after{width:40px; height:40px; right:10px;}
   .game .action__bet-content-button span:nth-child(1){font-size:14px;}
   .game .action__bet-content{flex-direction: row;}
   .game .action{height:100%; flex-direction: column; margin-bottom:10px;}

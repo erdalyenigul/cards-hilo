@@ -217,15 +217,12 @@ import Action from '../components/GameAction.vue';
           width:100%;
           height:106%;
           box-shadow: 0px 1px 4px #292929;
-          transition: transform .25s;
+          transition: transform .5s;
           transform-style: preserve-3d;
           backface-visibility: hidden;
           transform: translateX(0) rotateY(0);
-          &-slide-up{
-            transform: translateY(-2000px)!important;
-          }
           &-flip{
-            transform: translateX(0) rotateY(180deg);
+            transform: translateY(0) rotateY(180deg);
           }
           .rank{
             font-size: 40px;
@@ -555,7 +552,7 @@ import Action from '../components/GameAction.vue';
 
 .roundInfo {
   padding: 0 5px;
-  width: 100%;
+  width: 80%;
   display: flex;
   font-size: 15px;
   color: #1ba529;

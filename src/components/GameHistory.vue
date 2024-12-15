@@ -1,8 +1,13 @@
 <template>
-  <div class="roundInfo" v-if="cardHistory.length > 1">
-    <span>{{ gameover ? cardHistory.length - 2 : cardHistory.length - 1 }}</span>
+  <div class="roundInfo">
+    <span class="currenctRound">
+      <span v-if="cardHistory.length > 1">{{ gameover ? cardHistory.length - 2 : cardHistory.length - 1 }}</span>
+    </span>
+    <span class="highestRecord" v-if="highestRecord || currentRecord">
+      En Yüksek Skorunuz: {{ highestRecord > currentRecord ? highestRecord : currentRecord }}
+    </span>
   </div>
-  <div class="history">
+  <div class="history" v-if="!isGameStart">
     <div class="playingCards simpleCards" id="autoScroll">
       <ul class="table">
         <li v-for="(card, index) in cardHistory" :key="index">
@@ -24,10 +29,10 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs } from 'vue';
+import { toRefs, onMounted, ref } from 'vue';
 import { useMock } from '../stores/mock';
 
-const { cardHistory, gameover } = toRefs(useMock());
+const { cardHistory, gameover, isGameStart, highestRecord, currentRecord } = toRefs(useMock());
 
 const gameSymbols = (symbol: string) => {
  return new URL(`../assets/images/game-symbols/${symbol}.svg`, import.meta.url).href;
@@ -40,12 +45,17 @@ function setHistoryDecision(lose: boolean) {
 }
 
 function setHistoryStatusClass(status: string) {
-  console.log(status)
   if(status == 'start') return 'start';
   else if(status == 'higher') return 'card__decision-correct--up';
   else if(status == 'lower') return 'card__decision-correct--down';
   else { return 'card__decision-correct--other' }
 }
+
+onMounted(() => {
+  if(localStorage.getItem('highestRecord')) {
+    highestRecord.value = localStorage.getItem('highestRecord')
+  }
+})
 </script>
 
 <style lang="scss">

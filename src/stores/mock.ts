@@ -13,6 +13,8 @@ export const useMock = defineStore('mock', () => {
   const lastNumber = ref(0)
   const preventClick = ref(true)
   const isGameStart = ref(true)
+  const currentRecord = ref(0)
+  const highestRecord = ref(0)
   const cardStatus = ref('')
   const cardHistory = ref([])
   const outcomes = ref({
@@ -36,9 +38,6 @@ export const useMock = defineStore('mock', () => {
     },
   })
   const gameover = ref(false)
-  const hiddenBet = ref(false)
-  const switchShortcutMobile = ref(false)
-  const switchBetMobile = ref(false)
 
   const getRandomNumber = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -133,12 +132,25 @@ export const useMock = defineStore('mock', () => {
       {
         rank: rank.value,
         symbol: symbol.value,
-        bet: '1.9999',
         status: cardStatus.value,
         lose: true,
       }
     )
     gameover.value = true;
+
+    currentRecord.value = cardHistory.value.length - 2;
+
+    // localStorage'dan değeri al ve number'a çevir
+    const savedRecord = localStorage.getItem('highestRecord');
+
+    if (savedRecord) {
+      highestRecord.value = Number.parseInt(savedRecord, 10);
+    }
+
+    if (currentRecord.value >= highestRecord.value) {
+      localStorage.setItem('highestRecord', currentRecord.value.toString());
+    }
+
     startScroll();
   }
 
@@ -152,7 +164,6 @@ export const useMock = defineStore('mock', () => {
       {
         rank: rank.value,
         symbol: symbol.value,
-        bet: '1.9999',
         status: cardStatus.value,
         lose: false,
       },
@@ -205,9 +216,8 @@ export const useMock = defineStore('mock', () => {
     preventClick,
     cardHistory,
     gameover,
-    switchShortcutMobile,
-    switchBetMobile,
-    hiddenBet,
     outcomes,
+    highestRecord,
+    currentRecord
   };
 });

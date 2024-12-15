@@ -24,13 +24,11 @@
     <div class="action__cards">
       <div class="action__cards-playingCards playingCards simpleCards">
         <div class="action__cards-game">
-          <div v-if="isGameStart" class="action__cards-start" @click="startGame">
-            OYNA!
-          </div>
           <div v-if="gameover" class="action__cards-start" @click="startGame">
-           {{ cardHistory.length - 2 }} Kart Bildin :) <br> Yeniden Dene!
+           <span>{{ cardHistory.length - 2 }} Kart Bildin :)</span>
+           <span>Tekrar Dene!</span>
           </div>
-          <div :class="`card action__cards-playingCards-card ${isSlideActive ? 'action__cards-playingCards-card-slide-up' : ''} ${isFlipActive ? 'action__cards-playingCards-card-flip' : ''}`">
+          <div :class="`card action__cards-playingCards-card ${isSlideActive ? 'action__cards-playingCards-card-slide-up' : ''} ${isFlipActive ? 'action__cards-playingCards-card-flip' : ''}`" v-if="!isGameStart">
             <span :class="`rank ${symbol}`">{{ rank }}</span>
             <span class="suit">
               <img class="smybol-1" :src="gameSymbols(symbol)" :alt="symbol">
@@ -75,8 +73,6 @@ const {
   gameover,
   cardHistory,
   isFlipActive,
-  switchShortcutMobile,
-  switchBetMobile,
   outcomes } = toRefs(useMock());
 const { gameCardChange } = useMock();
 
@@ -97,48 +93,9 @@ function startGame() {
   }
 }
 
-function cashout() {
-  console.log('cashover')
-}
-
-const handleWindowSizeChange = () => {
-if (window.innerWidth < 767) {
-  switchShortcutMobile.value = true
-  switchBetMobile.value = false
-}
-if(window.innerWidth > 1023) { 
-  switchShortcutMobile.value = false
-  switchBetMobile.value = false
-}
-};
-
-function switchBetModel() {
-  switchShortcutMobile.value = !switchShortcutMobile.value
-  switchBetMobile.value = !switchBetMobile.value
-}
-
-onMounted(() => {
-  window.addEventListener("resize", handleWindowSizeChange);
-  handleWindowSizeChange();
-});
-
 </script>
 
 <style scoped>
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 40px;
-  height: 24px;
-  margin: 0;
-  margin-right: 5px;
-}
-
-.switch input { 
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
 
 .slider {
   position: absolute;

@@ -1,7 +1,7 @@
 <template>
   <div class="game">
-    <button class="showInfobtn" @click="showInfo = true">
-      <img src="../assets/images/info.png" alt=""> NASIL OYNANIR?
+    <button class="showInfoBtn" id="infoBtn" @click="showInfo = true">
+      <img src="../assets/images/info.png" alt="" />
     </button>
     <div class="gameInfo" v-if="showInfo">
       <div class="containerInfo">
@@ -38,25 +38,40 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, onMounted } from 'vue';
+import { ref, toRefs, onMounted } from "vue";
 import History from "../components/GameHistory.vue";
 import Action from "../components/GameAction.vue";
-import { useMock } from '../stores/mock';
+import { useMock } from "../stores/mock";
 
-const gameInfoVisible = ref(true)
-const showInfo = ref(false)
+const hideInfoBtn = ref(false);
+const gameInfoVisible = ref(true);
+const showInfo = ref(false);
 const { highestRecord } = toRefs(useMock());
 
 function gameInfoSet() {
-  highestRecord.value == 0 ? showInfo.value = true : showInfo.value = false
+  highestRecord.value == 0 ? (showInfo.value = true) : (showInfo.value = false);
 }
 
-onMounted(() => {
-  if(localStorage.getItem('highestRecord')) {
-    highestRecord.value = localStorage.getItem('highestRecord')
+window.addEventListener("scroll", () => {
+  const infoBtn = document.getElementById("infoBtn");
+
+  // Scroll mesafesi kontrolü
+  if(infoBtn) {
+    if (window.scrollY > 20) {
+      // 100px aşağı kaydırıldığında gizle
+      infoBtn.style.opacity = "0";
+    } else {
+      infoBtn.style.opacity = "1"; // Yukarı çıkınca tekrar göster
+    }
   }
-  gameInfoSet()
-})
+});
+
+onMounted(() => {
+  if (localStorage.getItem("highestRecord")) {
+    highestRecord.value = localStorage.getItem("highestRecord");
+  }
+  gameInfoSet();
+});
 </script>
 
 <style lang="scss">
@@ -69,7 +84,7 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
 
-  .showInfobtn {
+  .showInfoBtn {
     position: fixed;
     top: 0;
     left: 0;
@@ -84,7 +99,7 @@ onMounted(() => {
     text-align: left;
     font-size: 12px;
     img {
-      margin-right: 5px;
+      width: 25px;
     }
   }
 
@@ -97,6 +112,8 @@ onMounted(() => {
     border-radius: 10px;
     border: 1px solid #2f4566;
     padding: 10px;
+    z-index: 2;
+
     #autoScroll {
       scroll-behavior: smooth;
     }
@@ -623,7 +640,7 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
-  
+
   .currenctRound {
     span {
       width: 25px;

@@ -201,7 +201,10 @@ export const useMock = defineStore('mock', () => {
 
   function startScroll() {
     setTimeout(() => {
-      document.getElementById("autoScroll").scrollLeft += document.getElementById("autoScroll").scrollWidth;
+      const element = document.getElementById("autoScroll");
+      if (element) {
+        element.scrollLeft += element.scrollWidth;
+      }
     }, 500);
   }
 

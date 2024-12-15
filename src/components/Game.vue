@@ -17,6 +17,8 @@ import Action from '../components/GameAction.vue';
   width: 100%;
   flex-wrap: wrap;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
   .history{
     display:flex;
@@ -266,15 +268,15 @@ import Action from '../components/GameAction.vue';
         justify-content: center;
         padding: 10px 5px;
         border: none;
-        font-size: 14px;
+        font-size: 18px;
         border-radius: 10px;
-        line-height: 20px;
+        line-height: 22px;
         font-weight: 600;
         color: #fff;
         background: rgba(0, 0, 0, 0.8);
         z-index:2;
         text-align: center;
-        width: 130px;
+        width: 200px;
         cursor: pointer;
       }
       &-game{
@@ -552,19 +554,22 @@ import Action from '../components/GameAction.vue';
 }
 
 .roundInfo {
-  background-color: #000;
-  color: #fff;
-  padding: 2px;
-  left: 0;
-  top: 0;
-  width: 65px;
-  height: 25px;
+  padding: 0 5px;
+  width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 15px;
   color: #1ba529;
-  font-weight: 900;
+  span {
+    width: 25px;
+    height: 25px;
+    background-color: #1ba529;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    border-radius: 3px;
+  }
 }
 
 @media (max-width:1050px) {

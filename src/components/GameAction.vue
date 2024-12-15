@@ -28,7 +28,7 @@
             OYNA!
           </div>
           <div v-if="gameover" class="action__cards-start" @click="startGame">
-            Kaybettin! <br> Yeniden Dene!
+           {{ cardHistory.length - 2 }} Kart Bildin :) <br> Yeniden Dene!
           </div>
           <div :class="`card action__cards-playingCards-card ${isSlideActive ? 'action__cards-playingCards-card-slide-up' : ''} ${isFlipActive ? 'action__cards-playingCards-card-flip' : ''}`">
             <span :class="`rank ${symbol}`">{{ rank }}</span>
@@ -73,6 +73,7 @@ const {
   isGameStart,
   preventClick,
   gameover,
+  cardHistory,
   isFlipActive,
   switchShortcutMobile,
   switchBetMobile,

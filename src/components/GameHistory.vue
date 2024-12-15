@@ -1,5 +1,7 @@
 <template>
-  <div class="roundInfo" v-if="cardHistory.length > 1">TUR: {{ cardHistory.length - 1 }}</div>
+  <div class="roundInfo" v-if="cardHistory.length > 1">
+    <span>{{ gameover ? cardHistory.length - 2 : cardHistory.length - 1 }}</span>
+  </div>
   <div class="history">
     <div class="playingCards simpleCards" id="autoScroll">
       <ul class="table">
@@ -25,7 +27,7 @@
 import { toRefs } from 'vue';
 import { useMock } from '../stores/mock';
 
-const { cardHistory } = toRefs(useMock());
+const { cardHistory, gameover } = toRefs(useMock());
 
 const gameSymbols = (symbol: string) => {
  return new URL(`../assets/images/game-symbols/${symbol}.svg`, import.meta.url).href;

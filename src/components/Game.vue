@@ -424,15 +424,15 @@ import Action from '../components/GameAction.vue';
         &-correct{
           background-color:#1aa529;
           &--up{
-            background-image: url(../assets/images/arrow-up.svg);
+            background-image: url(../assets/images/arrow-up.png);
             background-size: cover;
           }
           &--down{
-            background-image: url(../assets/images/arrow-down.svg);
+            background-image: url(../assets/images/arrow-down.png);
             background-size: cover;
           }
           &--other{
-            background-image: url(../assets/images/hyphen.png);
+            background-image: url(../assets/images/circle.png);
             background-size: cover;
           }
         }
@@ -549,6 +549,22 @@ import Action from '../components/GameAction.vue';
       }
     }
   }
+}
+
+.roundInfo {
+  background-color: #000;
+  color: #fff;
+  padding: 2px;
+  left: 0;
+  top: 0;
+  width: 65px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: #1ba529;
+  font-weight: 900;
 }
 
 @media (max-width:1050px) {

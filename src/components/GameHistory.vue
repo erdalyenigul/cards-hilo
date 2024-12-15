@@ -1,4 +1,5 @@
 <template>
+  <div class="roundInfo" v-if="cardHistory.length > 1">TUR: {{ cardHistory.length - 1 }}</div>
   <div class="history">
     <div class="playingCards simpleCards" id="autoScroll">
       <ul class="table">
